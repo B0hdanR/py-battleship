@@ -40,7 +40,7 @@ class Ship:
         self.is_drowned = all(not deck.is_alive for deck in self.decks)
         return self.is_drowned
 
-    def is_alive(self, row: int, column: int) -> bool:
+    def is_deck_alive(self, row: int, column: int) -> bool:
         return any(deck.row == row
                    and deck.column == column
                    and deck.is_alive for deck in self.decks)
@@ -115,8 +115,8 @@ class Battleship:
         field = [["~"] * 10 for _ in range(10)]
         for (row, column), ship in self.field.items():
             if ship:
-                if ship.is_alive(row, column):
-                    field[row][column] = u"\u25A1"
+                if ship.is_deck_alive(row, column):
+                    field[row][column] = "O"
                 else:
                     field[row][column] = "*"
             else:
